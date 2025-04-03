@@ -1,6 +1,6 @@
 import { LitElement, css, html } from 'lit'
 import './steps/add-longitude'
-import './steps/btn-conversor'
+import './steps/historial-list'
 
 
 export class MetricConversor extends LitElement {
@@ -24,10 +24,19 @@ export class MetricConversor extends LitElement {
         type: String,
       },
       currentUnit: {
-        type: String
+        type: String,
       },
       currentMetric: {
-        type: Number
+        type: Number,
+      },
+      conversionHistory: {
+        type: Array,
+      },
+      unitsHistory: {
+        type: Array,
+      },
+      wishHistory: {
+        type: Array,
       },
     }
   }
@@ -38,6 +47,16 @@ export class MetricConversor extends LitElement {
     this.currentUnit = '';
     this.currentMetric = 0;
     this.longitud = 0;
+    this.conversionHistory = [];
+    this.unitsHistory = [];
+    this.wishHistory = [];
+  }
+
+  updateHistory(value, unit, wish) {
+    // 🔹 Se crea una nueva referencia del array para que Lit detecte el cambio
+    this.conversionHistory = [...this.conversionHistory, { value }];
+    this.unitsHistory = [...this.unitsHistory, {unit} ];
+    this.wishHistory = [...this.wishHistory, {wish}];
   }
 
   mathMM(){
@@ -46,16 +65,19 @@ export class MetricConversor extends LitElement {
 
     if( wishToConvert === 'cm'){
       currentMetric = longitud / 10
-      console.log(currentMetric)
+
       
     } else if( wishToConvert === 'in'){
       currentMetric = longitud / 25.4
-      console.log(currentMetric)
+
       
     } else if ( wishToConvert === 'ft'){
       currentMetric = longitud / 304.8
-      console.log(currentMetric)
-    }    
+
+    }
+    if( currentMetric !== undefined ) this.updateHistory(currentMetric, this.currentUnit, wishToConvert);
+
+    
   }
 
   mathCM(){
@@ -64,17 +86,20 @@ export class MetricConversor extends LitElement {
 
     if( wishToConvert === 'mm'){
       currentMetric = longitud * 10
-      console.log(currentMetric)
+
 
     } else if ( wishToConvert === 'in'){
       currentMetric = longitud / 2.54
-      console.log(currentMetric)
+
 
     } else if ( wishToConvert === 'ft'){
       currentMetric = longitud / 30.48
-      console.log(currentMetric)
+   
 
     }
+
+    if( currentMetric !== undefined ) this.updateHistory(currentMetric, this.currentUnit, wishToConvert);
+
   }
 
   mathIN(){
@@ -83,17 +108,20 @@ export class MetricConversor extends LitElement {
 
     if( wishToConvert === 'mm' ){
       currentMetric = longitud * 25.4
-      console.log(currentMetric) 
+ 
       
     }else if( wishToConvert === 'cm'){
       currentMetric = longitud * 2.54
-      console.log(currentMetric)
+
 
     }else if( wishToConvert === 'ft'){
       currentMetric = longitud / 12
-      console.log(currentMetric)
+
       
     }
+
+    if( currentMetric !== undefined ) this.updateHistory(currentMetric, this.currentUnit, wishToConvert);
+
   }
 
 
@@ -103,17 +131,20 @@ export class MetricConversor extends LitElement {
 
     if( wishToConvert === 'mm' ){
       currentMetric = longitud * 304.8
-      console.log(currentMetric) 
+ 
       
     }else if( wishToConvert === 'cm'){
       currentMetric = longitud * 30.48
-      console.log(currentMetric)
+
 
     }else if( wishToConvert === 'in'){
       currentMetric = longitud * 12
-      console.log(currentMetric)
+
 
     }
+
+    if( currentMetric !== undefined ) this.updateHistory(currentMetric, this.currentUnit, wishToConvert);
+
   }
 
   
@@ -145,14 +176,17 @@ export class MetricConversor extends LitElement {
   
 
 
-
   render() {
     return html`
       <slot></slot>
       <add-longitude
       @add-new-longitude="${(e) => this.handleMetrics(e)}"
       ></add-longitude> 
-      <btn-conversor></btn-conversor>  
+      <historial-list
+      .record=${this.conversionHistory}
+      .listUnits=${this.unitsHistory}
+      .listWish=${this.wishHistory}
+      ></historial-list>  
     `;
   }
 
