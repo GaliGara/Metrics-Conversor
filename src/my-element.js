@@ -34,7 +34,6 @@ export class MetricConversor extends LitElement {
 
   constructor() {
     super()
-    this.unitsOfLength = ['mm', 'cm', 'in', 'ft'];
     this.wishToConvert = '';
     this.currentUnit = '';
     this.currentMetric = 0;
@@ -60,50 +59,59 @@ export class MetricConversor extends LitElement {
   }
 
   mathCM(){
-    if( this.wishToConvert === 'mm'){
-      this.currentMetric = this.longitud * 10
-      console.log(this.currentMetric)
 
-    } else if ( this.wishToConvert === 'in'){
-      this.currentMetric = this.longitud / 2.54
-      console.log(this.currentMetric)
+    let { wishToConvert, currentMetric, longitud } = this;
 
-    } else if ( this.wishToConvert === 'ft'){
-      this.currentMetric = this.longitud / 30.48
-      console.log(this.currentMetric)
+    if( wishToConvert === 'mm'){
+      currentMetric = longitud * 10
+      console.log(currentMetric)
+
+    } else if ( wishToConvert === 'in'){
+      currentMetric = longitud / 2.54
+      console.log(currentMetric)
+
+    } else if ( wishToConvert === 'ft'){
+      currentMetric = longitud / 30.48
+      console.log(currentMetric)
 
     }
   }
 
   mathIN(){
-    if( this.wishToConvert === 'mm' ){
-      this.currentMetric = this.longitud * 25.4
-      console.log(this.currentMetric) 
-      
-    }else if( this.wishToConvert === 'cm'){
-      this.currentMetric = this.longitud * 2.54
-      console.log(this.currentMetric)
 
-    }else if( this.wishToConvert === 'ft'){
-      this.currentMetric = this.longitud / 12
-      console.log(this.currentMetric)
+    let { wishToConvert, currentMetric, longitud } = this;
+
+    if( wishToConvert === 'mm' ){
+      currentMetric = longitud * 25.4
+      console.log(currentMetric) 
+      
+    }else if( wishToConvert === 'cm'){
+      currentMetric = longitud * 2.54
+      console.log(currentMetric)
+
+    }else if( wishToConvert === 'ft'){
+      currentMetric = longitud / 12
+      console.log(currentMetric)
       
     }
   }
 
 
   mathFT(){
-    if( this.wishToConvert === 'mm' ){
-      this.currentMetric = this.longitud * 304.8
-      console.log(this.currentMetric) 
-      
-    }else if( this.wishToConvert === 'cm'){
-      this.currentMetric = this.longitud * 30.48
-      console.log(this.currentMetric)
 
-    }else if( this.wishToConvert === 'in'){
-      this.currentMetric = this.longitud * 12
-      console.log(this.currentMetric)
+    let { wishToConvert, currentMetric, longitud } = this;
+
+    if( wishToConvert === 'mm' ){
+      currentMetric = longitud * 304.8
+      console.log(currentMetric) 
+      
+    }else if( wishToConvert === 'cm'){
+      currentMetric = longitud * 30.48
+      console.log(currentMetric)
+
+    }else if( wishToConvert === 'in'){
+      currentMetric = longitud * 12
+      console.log(currentMetric)
 
     }
   }
