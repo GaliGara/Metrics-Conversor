@@ -1,0 +1,21 @@
+{
+  "name": "metric-conversion",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@material/mwc-button": "^0.27.0",
+    "@material/mwc-select": "^0.27.0",
+    "@material/mwc-tab-bar": "^0.27.0",
+    "@material/mwc-textarea": "^0.27.0",
+    "lit": "^3.2.1"
+  },
+  "devDependencies": {
+    "vite": "^6.2.0"
+  }
+}
