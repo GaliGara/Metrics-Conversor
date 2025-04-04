@@ -1,4 +1,4 @@
-import { html, css, LitElement } from "lit";
+import { html, css, LitElement, nothing } from "lit";
 import '@material/mwc-select';
 import '@material/mwc-button';
 import '@material/mwc-list' 
@@ -12,12 +12,32 @@ export class HistorialList extends LitElement{
                 margin: 3rem;
                 display: flex;
                 justify-content: center;
+                flex-direction: column;
+                align-items: center;
             }
 
             mwc-list {
                 --mdc-theme-text-primary-on-background: white;
                 --mdc-theme-text-secondary-on-background: white;
+                width: 100%;
+                max-width: 600px;
+                background-color: #555; 
+                border-radius: 8px;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+                padding: 0;
                 }
+                
+            .item {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 1rem;
+
+            }
+
+            h2 {
+            color: var(--title--color);
+            }
 
         `
     }
@@ -34,6 +54,10 @@ export class HistorialList extends LitElement{
             listWish: {
                 type: Array,
             },
+
+            listLongitud: {
+                type: Array,
+            },
         }
     }  
     constructor(){
@@ -42,27 +66,34 @@ export class HistorialList extends LitElement{
         this.record = [];
         this.listUnits = [];
         this.listWish = [];
+        this.listLongitud = [];
     }
 
 
     render(){
-            // console.log(this.record)
-        return html`
+        return (this.record.length > 0)
+        ? html`
         <div class='list'>
+        <h2>Historial de conversiones</h2>
         <mwc-list>
             ${this.record.map( 
                 (history, index) =>
                 html`
-                <mwc-list-item twoline>
-                    <span>${history.value}</span>
-                    <span slot="secondary">${this.listUnits[index]?.unit} -> ${this.listWish[index]?.wish}</span>
-                </mwc-list-item> `
+                <mwc-list-item class='item'>
+                <span>
+                 ${this.listLongitud[index]?.long} ${this.listUnits[index]?.unit} = ${history.value} ${this.listWish[index]?.wish}
+                </span>
+
+                </mwc-list-item> 
+                <li divider role="separator"></li>
+                `
             )}
 
             </mwc-list>
 
         </div> 
         `
+        : nothing
     }
 
 

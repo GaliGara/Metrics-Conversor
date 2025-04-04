@@ -38,6 +38,9 @@ export class MetricConversor extends LitElement {
       wishHistory: {
         type: Array,
       },
+      longitudHistory: {
+        type: Array,
+      },
     }
   }
 
@@ -50,13 +53,15 @@ export class MetricConversor extends LitElement {
     this.conversionHistory = [];
     this.unitsHistory = [];
     this.wishHistory = [];
+    this.longitudHistory = [];
   }
 
-  updateHistory(value, unit, wish) {
+  updateHistory(value, unit, wish, long) {
     // 🔹 Se crea una nueva referencia del array para que Lit detecte el cambio
     this.conversionHistory = [...this.conversionHistory, { value }];
     this.unitsHistory = [...this.unitsHistory, {unit} ];
     this.wishHistory = [...this.wishHistory, {wish}];
+    this.longitudHistory = [...this.longitudHistory, {long}];
   }
 
   mathMM(){
@@ -75,7 +80,7 @@ export class MetricConversor extends LitElement {
       currentMetric = longitud / 304.8
 
     }
-    if( currentMetric !== undefined ) this.updateHistory(currentMetric, this.currentUnit, wishToConvert);
+    if( currentMetric !== undefined ) this.updateHistory(currentMetric, this.currentUnit, wishToConvert, longitud);
 
     
   }
@@ -98,7 +103,7 @@ export class MetricConversor extends LitElement {
 
     }
 
-    if( currentMetric !== undefined ) this.updateHistory(currentMetric, this.currentUnit, wishToConvert);
+    if( currentMetric !== undefined ) this.updateHistory(currentMetric, this.currentUnit, wishToConvert, longitud);
 
   }
 
@@ -120,7 +125,7 @@ export class MetricConversor extends LitElement {
       
     }
 
-    if( currentMetric !== undefined ) this.updateHistory(currentMetric, this.currentUnit, wishToConvert);
+    if( currentMetric !== undefined ) this.updateHistory(currentMetric, this.currentUnit, wishToConvert, longitud);
 
   }
 
@@ -143,7 +148,7 @@ export class MetricConversor extends LitElement {
 
     }
 
-    if( currentMetric !== undefined ) this.updateHistory(currentMetric, this.currentUnit, wishToConvert);
+    if( currentMetric !== undefined ) this.updateHistory(currentMetric, this.currentUnit, wishToConvert, longitud);
 
   }
 
@@ -186,6 +191,7 @@ export class MetricConversor extends LitElement {
       .record=${this.conversionHistory}
       .listUnits=${this.unitsHistory}
       .listWish=${this.wishHistory}
+      .listLongitud=${this.longitudHistory}
       ></historial-list>  
     `;
   }
