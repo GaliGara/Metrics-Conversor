@@ -1,6 +1,6 @@
 import { LitElement, css, html } from 'lit'
 import './steps/add-longitude'
-import './steps/historial-list'
+import './steps/history-list'
 
 
 export class MetricConversor extends LitElement {
