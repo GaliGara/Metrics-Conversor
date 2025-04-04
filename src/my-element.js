@@ -27,15 +27,6 @@ export class MetricConversor extends LitElement {
       conversionHistory: {
         type: Array,
       },
-      unitsHistory: {
-        type: Array,
-      },
-      wishHistory: {
-        type: Array,
-      },
-      longitudHistory: {
-        type: Array,
-      },
     }
   }
 
@@ -46,151 +37,58 @@ export class MetricConversor extends LitElement {
     this.currentMetric = 0;
     this.longitud = 0;
     this.conversionHistory = [];
-    this.unitsHistory = [];
-    this.wishHistory = [];
-    this.longitudHistory = [];
   }
 
-  updateHistory(value, unit, wish, long) {
-    // 🔹 Se crea una nueva referencia del array para que Lit detecte el cambio
-    const historyItem = {value, unit, wish, long};
-    this.conversionHistory = [...this.conversionHistory, historyItem];
-  }
+    static conversionRates = {
+      mm: { cm: 0.1, in: 0.03937, ft: 0.0032808 },
+      cm: { mm: 10, in: 0.3937, ft: 0.032808 },
+      in: { mm: 25.4, cm: 2.54, ft: 0.083333 },
+      ft: { mm: 304.8, cm: 30.48, in: 12 }
+    };
 
-  mathMM(){
+    conversMetrics(){
+      const { longitud, currentUnit, wishToConvert } = this;
+      const conversionRates = MetricConversor.conversionRates[currentUnit]?.[wishToConvert];
 
-    let { wishToConvert, currentMetric, longitud } = this;
+      if (currentUnit === wishToConvert) {
 
-    if( wishToConvert === 'cm'){
-      currentMetric = longitud / 10
+        this.currentMetric = longitud;
+      } else {
 
-      
-    } else if( wishToConvert === 'in'){
-      currentMetric = longitud / 25.4
-
-      
-    } else if ( wishToConvert === 'ft'){
-      currentMetric = longitud / 304.8
-
-    }else{ currentMetric = longitud}
-
-    if( currentMetric !== undefined ) this.updateHistory(currentMetric, this.currentUnit, wishToConvert, longitud);
-
-    
-  }
-
-  mathCM(){
-
-    let { wishToConvert, currentMetric, longitud } = this;
-
-    if( wishToConvert === 'mm'){
-      currentMetric = longitud * 10
-
-
-    } else if ( wishToConvert === 'in'){
-      currentMetric = longitud / 2.54
-
-
-    } else if ( wishToConvert === 'ft'){
-      currentMetric = longitud / 30.48
-   
-
-    }else{ currentMetric = longitud}
-
-    if( currentMetric !== undefined ) this.updateHistory(currentMetric, this.currentUnit, wishToConvert, longitud);
-
-  }
-
-  mathIN(){
-
-    let { wishToConvert, currentMetric, longitud } = this;
-
-    if( wishToConvert === 'mm' ){
-      currentMetric = longitud * 25.4
- 
-      
-    }else if( wishToConvert === 'cm'){
-      currentMetric = longitud * 2.54
-
-
-    }else if( wishToConvert === 'ft'){
-      currentMetric = longitud / 12
-
-      
-    }else{ currentMetric = longitud}
-
-    if( currentMetric !== undefined ) this.updateHistory(currentMetric, this.currentUnit, wishToConvert, longitud);
-
-  }
-
-
-  mathFT(){
-
-    let { wishToConvert, currentMetric, longitud } = this;
-
-    if( wishToConvert === 'mm' ){
-      currentMetric = longitud * 304.8
- 
-      
-    }else if( wishToConvert === 'cm'){
-      currentMetric = longitud * 30.48
-
-
-    }else if( wishToConvert === 'in'){
-      currentMetric = longitud * 12
-
-
-    }else{ currentMetric = longitud}
-
-    if( currentMetric !== undefined ) this.updateHistory(currentMetric, this.currentUnit, wishToConvert, longitud);
-
-  }
-
-
-
-  
-  conversMetrics(){
-    switch(this.currentUnit){
-      case 'mm' :
-        this.mathMM();
-        break;
-      case 'cm' :
-        this.mathCM();
-        break;
-      case 'in' :
-        this.mathIN();
-        break;
-      case 'ft' :
-        this.mathFT();    
-        }
+        this.currentMetric = longitud * conversionRates;
       }
-      
-      handleMetrics(e){
-        const { longitud, unidad, wishToConvert } = e.detail;
 
-        this.longitud = longitud
-        this.currentUnit = unidad
-        this.wishToConvert = wishToConvert
-    
-        this.conversMetrics();
-      }
-  
+      this.updateHistory(this.currentMetric, currentUnit, wishToConvert, longitud);    
 
+    }
+        
+    handleMetrics(e){
+      const { longitud, unidad, wishToConvert } = e.detail;
 
-  render() {
-    return html`
-      <slot></slot>
-      <add-longitude
-      @add-new-longitude="${(e) => this.handleMetrics(e)}"
-      ></add-longitude> 
-      <historial-list
-      .record=${this.conversionHistory}
-      .listUnits=${this.unitsHistory}
-      .listWish=${this.wishHistory}
-      .listLongitud=${this.longitudHistory}
-      ></historial-list>  
-    `;
-  }
+      this.longitud = longitud
+      this.currentUnit = unidad
+      this.wishToConvert = wishToConvert
+
+      this.conversMetrics();
+    }
+
+    updateHistory(value, unit, wish, long) {
+      // Se crea una nueva referencia del array para que Lit detecte el cambio
+      const historyItem = {value, unit, wish, long};
+      this.conversionHistory = [...this.conversionHistory, historyItem];
+    }
+
+    render() {
+      return html`
+        <slot></slot>
+        <add-longitude
+        @add-new-longitude="${(e) => this.handleMetrics(e)}"
+        ></add-longitude> 
+        <historial-list
+        .record=${this.conversionHistory}
+        ></historial-list>  
+      `;
+    }
 
 
 }

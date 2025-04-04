@@ -44,11 +44,19 @@ export class Addlongitude extends LitElement{
           --mdc-select-label-ink-color: white;
         }
 
-        mwc-textfield, mwc-select, mwc-button {
-          margin-bottom: 1.5rem; /* Espacio entre los elementos */
+        mwc-textfield, mwc-button {
+          margin: 1rem ; /* Espacio entre los elementos */
           width: 100%; /* Ocupa todo el ancho disponible */
-          max-width: 400px; /* Limita el ancho máximo */
+          max-width: 300px; /* Limita el ancho máximo */
         }
+
+      .equal-sign {
+        font-size: 66px;  /* Tamaño de fuente */
+        font-weight: bold; /* Negrita */
+        color: var(--title--color); /* Color */
+        margin: 0 10px; /* Espaciado a los lados */
+        text-align: center; /* Centrar */
+      }
 
       `
   }
@@ -108,8 +116,8 @@ export class Addlongitude extends LitElement{
           <mwc-list-item value="in">pulgadas (in)</mwc-list-item>
           <mwc-list-item value="ft">pies (ft)</mwc-list-item>
         </mwc-select>
-
-        <br></br>
+        <p class="equal-sign"> = </p>
+        <!-- <br></br> -->
         <mwc-select id="unidad-salida" outlined label="Unidad a convertir">
           <mwc-list-item></mwc-list-item>
           <mwc-list-item selected value="mm">milimetros (mm)</mwc-list-item>
