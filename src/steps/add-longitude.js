@@ -8,7 +8,7 @@ export class Addlongitude extends LitElement{
       return css`
 
        .longitud {
-          margin: 3rem;
+          margin: auto;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -17,6 +17,8 @@ export class Addlongitude extends LitElement{
           border-radius: 9px; 
           padding: 2rem;
           box-shadow: 0 6px 9px rgba(0, 0, 0, 0.3); 
+          max-width: 180px;
+          width: 100%;
         }   
 
 
