@@ -6,6 +6,20 @@ export class Addlongitude extends LitElement{
 
   static get styles(){
       return css`
+
+       .longitud {
+          margin: 3rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          background-color: #444; 
+          border-radius: 9px; 
+          padding: 2rem;
+          box-shadow: 0 6px 9px rgba(0, 0, 0, 0.3); 
+        }   
+
+
         mwc-textfield.rounded {
           --mdc-shape-small: 28px;
         }
@@ -16,6 +30,7 @@ export class Addlongitude extends LitElement{
           --mdc-text-field-outlined-hover-border-color: white;
           --mdc-text-field-ink-color: white;
           --mdc-text-field-label-ink-color: white;
+          padding: 1.5rem;
 
         }
 
@@ -26,6 +41,13 @@ export class Addlongitude extends LitElement{
           --mdc-select-ink-color: white;
           --mdc-select-label-ink-color: white;
         }
+
+        mwc-textfield, mwc-select, mwc-button {
+          margin-bottom: 1.5rem; /* Espacio entre los elementos */
+          width: 100%; /* Ocupa todo el ancho disponible */
+          max-width: 400px; /* Limita el ancho máximo */
+        }
+
       `
   }
 
