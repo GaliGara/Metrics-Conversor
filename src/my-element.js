@@ -15,9 +15,6 @@ export class MetricConversor extends LitElement {
       longitud: {
         type: Number,
       },
-      unitsOfLength: {
-        typpe: Array,
-      },
       wishToConvert: {
         type: String,
       },
@@ -56,10 +53,8 @@ export class MetricConversor extends LitElement {
 
   updateHistory(value, unit, wish, long) {
     // 🔹 Se crea una nueva referencia del array para que Lit detecte el cambio
-    this.conversionHistory = [...this.conversionHistory, { value }];
-    this.unitsHistory = [...this.unitsHistory, {unit} ];
-    this.wishHistory = [...this.wishHistory, {wish}];
-    this.longitudHistory = [...this.longitudHistory, {long}];
+    const historyItem = {value, unit, wish, long};
+    this.conversionHistory = [...this.conversionHistory, historyItem];
   }
 
   mathMM(){
@@ -150,6 +145,8 @@ export class MetricConversor extends LitElement {
     if( currentMetric !== undefined ) this.updateHistory(currentMetric, this.currentUnit, wishToConvert, longitud);
 
   }
+
+
 
   
   conversMetrics(){

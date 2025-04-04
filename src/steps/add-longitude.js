@@ -97,7 +97,7 @@ export class Addlongitude extends LitElement{
         <mwc-textfield
           id='imputMetric'
           class="rounded"
-          label="My Textfield"
+          label="Longitud a medir"
           outlined>
         </mwc-textfield>
 

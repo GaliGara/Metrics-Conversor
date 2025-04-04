@@ -46,27 +46,12 @@ export class HistorialList extends LitElement{
             record: {
                 type: Array,
             },
-
-            listUnits: {
-                type: Array,
-            },
-
-            listWish: {
-                type: Array,
-            },
-
-            listLongitud: {
-                type: Array,
-            },
         }
     }  
     constructor(){
         super();
 
         this.record = [];
-        this.listUnits = [];
-        this.listWish = [];
-        this.listLongitud = [];
     }
 
 
@@ -77,11 +62,11 @@ export class HistorialList extends LitElement{
         <h2>Historial de conversiones</h2>
         <mwc-list>
             ${this.record.map( 
-                (history, index) =>
+                (item) =>
                 html`
                 <mwc-list-item class='item'>
                 <span>
-                 ${this.listLongitud[index]?.long} ${this.listUnits[index]?.unit} = ${history.value} ${this.listWish[index]?.wish}
+                 ${item?.long} ${item?.unit} = ${item.value} ${item?.wish}
                 </span>
 
                 </mwc-list-item> 
