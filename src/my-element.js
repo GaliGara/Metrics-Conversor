@@ -7,8 +7,6 @@ export class MetricConversor extends LitElement {
 
   static get styles() {
     return css `
-
-
     `
   }
 
@@ -79,7 +77,8 @@ export class MetricConversor extends LitElement {
     } else if ( wishToConvert === 'ft'){
       currentMetric = longitud / 304.8
 
-    }
+    }else{ currentMetric = longitud}
+
     if( currentMetric !== undefined ) this.updateHistory(currentMetric, this.currentUnit, wishToConvert, longitud);
 
     
@@ -101,7 +100,7 @@ export class MetricConversor extends LitElement {
       currentMetric = longitud / 30.48
    
 
-    }
+    }else{ currentMetric = longitud}
 
     if( currentMetric !== undefined ) this.updateHistory(currentMetric, this.currentUnit, wishToConvert, longitud);
 
@@ -123,7 +122,7 @@ export class MetricConversor extends LitElement {
       currentMetric = longitud / 12
 
       
-    }
+    }else{ currentMetric = longitud}
 
     if( currentMetric !== undefined ) this.updateHistory(currentMetric, this.currentUnit, wishToConvert, longitud);
 
@@ -146,7 +145,7 @@ export class MetricConversor extends LitElement {
       currentMetric = longitud * 12
 
 
-    }
+    }else{ currentMetric = longitud}
 
     if( currentMetric !== undefined ) this.updateHistory(currentMetric, this.currentUnit, wishToConvert, longitud);
 
